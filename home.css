@@ -1,0 +1,48 @@
+body {
+    background-image: linear-gradient(90deg, lightblue, skyblue, dodgerblue);
+    color: white;
+}
+
+#Header {
+    color: rgb(168, 31, 31);
+    font-weight: 600;
+}
+
+#Welcome {
+    font-size: 32px;
+}
+
+#main_div {
+    height: 350px;
+    background: skyblue;
+    border-radius: 20px;
+    border: 2px ridge dodgerblue;
+}
+
+#Semiheader {
+    padding-top: 10px;
+}
+
+#answer {
+    color: black;
+    width: 250px;
+    padding: 0px;
+}
+
+.btn-secondary {
+    background-color: darkgray;
+    color: white;
+}
+
+.btn-secondary:hover {
+    color: white;
+}
+
+input {
+    color: black;
+    width: 200px;
+}
+
+.form-control {
+    width: 200px;
+}

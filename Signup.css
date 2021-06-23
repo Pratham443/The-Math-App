@@ -1,0 +1,42 @@
+body {
+    background: lightblue;
+    color: white;
+}
+
+label {
+    font-size: 20px;
+    text-align: center;
+}
+
+#First_div {
+    width: 50%;
+    height: 100%;
+    background: dodgerblue;
+    text-align: center;
+    float: left;
+}
+
+#First_div img {
+    width: 250;
+    height: 250;
+    margin-top: 150px;
+}
+
+#Second_div {
+    width: 50%;
+    float: right;
+    text-align: center;
+}
+
+#emaillabel {
+    margin-top: 100px;
+}
+
+.form-control {
+    width: 300px;
+    margin-left: 250px;
+}
+
+#error {
+    color: red;
+}
