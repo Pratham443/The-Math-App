@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Login | The Math App</title>
+        <title>Sign Up | The Math App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -9,7 +9,7 @@
         <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
 
-        <link rel="stylesheet" href="Login.css">
+        <link rel="stylesheet" href="Signup.css">
     </head>
 
     <body>
@@ -20,19 +20,28 @@
             </div>
     
             <div id="Second_div">
+                <label id="emaillabel">Email</label>
+                <input id="email" class="form-control" type="text" placeholder="Type Email">
+                <br>
+                <label id="gradelabel">Grade</label>
+                <input id="grade" class="form-control" type="number" placeholder="Type Grade">
+                <br>
                 <label id="userlabel">Username</label>
                 <input id="username" class="form-control" type="text" placeholder="Type Username">
                 <br>
                 <label id="passlabel">Password</label>
                 <input id="password" class="form-control" type="text" placeholder="Type Password">
                 <br>
-                <button id="login" class="btn btn-success" onclick="login();">Login</button>
+                <label id="passlabelverify">Confirm Password</label>
+                <input id="passwordverify" class="form-control" type="text" placeholder="Confirm Password">
                 <br>
-                <h4 id="error"></h4>
-                <h4>Do not have an account?<a href="index.html">Sign Up</a></h4>
+                <h3 id="error"></h3>
+                <button id="login" class="btn btn-success" onclick="signup();">Sign Up</button>
+                <h4>Already have an account?<a href="Login.html">Log In</a></h4>
             </div>
         </center>
     
-        <script src="Login.js"></script> 
+        <script src="Signup.js"></script> 
     </body>
 </html>
+
