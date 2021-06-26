@@ -13,7 +13,7 @@ body {
 }
 
 #main_div {
-    height: 350px;
+    height: 400px;
     background: skyblue;
     border-radius: 20px;
     border: 2px ridge dodgerblue;
@@ -45,4 +45,8 @@ input {
 
 .form-control {
     width: 200px;
+}
+
+#next_button {
+    display: none;
 }
