@@ -9,7 +9,6 @@ label {
 }
 
 #First_div {
-    width: 50%;
     height: 100%;
     background: dodgerblue;
     text-align: center;
@@ -23,7 +22,6 @@ label {
 }
 
 #Second_div {
-    width: 50%;
     float: right;
     text-align: center;
 }

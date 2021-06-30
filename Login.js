@@ -21,6 +21,19 @@ var childKey = "";
 var childData = "";
 var correct_passwordy = "";
 
+var height = screen.height;
+var width = screen.width;
+console.log(height);
+console.log(width);
+
+if(width < 782) {
+    document.getElementById("First_div").style.width = "0%";
+    document.getElementById("First_div").innerHTML = "";
+    document.getElementById("First_div").style.backgroundColor = "lightblue";
+    document.getElementById("Second_div").style.width = "100%";
+    console.log('This is RUNNING');
+}
+
 
 function login() {
     var username = document.getElementById("username").value;

@@ -8,7 +8,6 @@ label {
 }
 
 #First_div {
-    width: 50%;
     height: 100%;
     background: dodgerblue;
     text-align: center;
@@ -22,18 +21,15 @@ label {
 }
 
 #Second_div {
-    width: 50%;
-    float: right;
     text-align: center;
 }
 
 .form-control {
     width: 300px;
-    margin-left: 250px;
 }
 
 #userlabel {
-    margin-top: 150px;
+    margin-top: 200px;
 }
 
 #error {
