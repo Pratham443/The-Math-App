@@ -1,6 +1,19 @@
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
+var height = screen.height;
+var width = screen.width;
+console.log(height);
+console.log(width);
+
+if(width < 782) {
+    document.getElementById("First_div").style.width = "0%";
+    document.getElementById("First_div").innerHTML = "";
+    document.getElementById("First_div").style.backgroundColor = "lightblue";
+    document.getElementById("Second_div").style.width = "100%";
+    console.log('This is RUNNING');
+}
+
 function signup() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;

@@ -48,61 +48,50 @@ var email = localStorage.getItem("Email");
 var mouseup1 = 1;
 var mouseup2 = 0;
 
-console.log(email);
-console.log(grade);
-
 if(email == null) {
     function getData() {firebase.database().ref("/" + username).on('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
         childKey = childSnapshot.key;
         childData = childSnapshot.val();
-        console.log(childKey + " " + childData);
+        (childKey + " " + childData);
         if(childKey == "grade") {
             grade = childData;
-            console.log(grade);
         }
 
         if(childKey == "easyRange") {
             easyrange = childData;
-            console.log(easyrange);
         }
 
         if(childKey == "hardRange") {
             hardrange = childData;
-            console.log(hardrange);
         }
 
         if(childKey == "times") {
             times = childData;
-            console.log(times);
         }
 
         if(childKey == "percentageOfCorrectAnswers") {
             Percentage_correct_answers = childData;
-            console.log(Percentage_correct_answers);
         }
 
         if(childKey == "totalQuestions") {
             total_questions = childData;
-            console.log(total_questions);
+
         }
 
         if(childKey == "correctQuestions") {
             correct_questions = childData;
-            console.log(correct_questions);
         }
 
         if(childKey == "incorrectQuestions") {
             incorrect_questions = childData;
-            console.log(incorrect_questions);
         }
 
         if(childKey == "averageTime") {
             average_time_per_question = childData;
-            console.log(average_time_per_question);
         }
     });});}
     getData(); 
-    console.log("correctly done " + grade);
+    ("correctly done " + grade);
 }
 
 else {
@@ -168,7 +157,7 @@ else {
 }
 
 document.getElementById("Name").innerHTML = username + "!";
-console.log(username);
+(username);
 
 if((grade == 1) || (grade == 2)) {
     document.getElementById("buttons").innerHTML = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Stats</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
@@ -188,19 +177,16 @@ function Practice(oper) {
     else {
         buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
     }
-    mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success check" onmouseup = "mouseup();" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button></div>';
+    mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button></div>';
     if(oper == "Division") {
-        console.log(oper);
         if((grade == 6) || (grade == 7) || (grade == 8)) {
-            console.log("jeeeeeeeeeee");
-            console.log(grade);
-            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><button id="check_button" class="btn btn-success check" onmouseup="mouseup();" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><br><br><h5 id="note" class="text-muted">Note: Round the number to 3 decimal digits</h5><br><br></div>';
+            ("jeeeeeeeeeee");
+            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><br><br><h5 id="note" class="text-muted">Note: Round the number to 3 decimal digits</h5><br><br></div>';
         }
 
         else {
-            console.log("jiiiiiiiii");
-            console.log(grade);
-            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><input id="remainder" class="form_control" placeholder="Type the remainder" type="number"><br><br><button id="check_button" class="btn btn-success check" onmouseup="mouseup();" onclick="check(' + oper + ');">Check Your Answer</button><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button></div>';
+            ("jiiiiiiiii");
+            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><input id="remainder" class="form_control" placeholder="Type the remainder" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button></div>';
         }
     }
     div = header + buttons + mini_screen;
@@ -228,7 +214,6 @@ function Practice(oper) {
 }
 
 function Stats() {
-    console.log(total_questions);
     stats = '<br><h4 class="btn btn-secondary">Total Questions: <span class="var" id="totquest"></span></h4><br><h4 class="btn btn-secondary">Correct Questions: <span class="var" id="corquest"></span></h4><br><h4 class="btn btn-secondary">Incorrect Questions: <span class="var" id="incorquest"></span></h4><br><h4 class="btn btn-secondary">Average Time: <span class="var" id="avgtime"></span></h4><br><h4 class="btn btn-secondary">Percentage of Correct Answers: <span class="var" id="percocoans"></span></h4>';
     header = "<h3>What do you want to practice today?</h3>";
     if((grade == 1) || (grade == 2)) {
@@ -260,12 +245,9 @@ function Stats() {
 }
 
 function check(oper) {
-    console.log(oper);
-    console.log(oper.id);
-    console.log(oper);
     questy = document.getElementById("question").innerText;
     useranswer = document.getElementById("answer").value;
-    console.log(useranswer);
+
     if(useranswer == "") {
         document.getElementById("question").innerText = "Answer is not valid";
         document.getElementById("question").style.color = "red";
@@ -335,8 +317,6 @@ function check(oper) {
     
         else {
             useranswer = document.getElementById("answer").value;
-            console.log(answer);
-            console.log(useranswer);
             if(useranswer == undefined) {
                 document.getElementById("question").innerHTML = "Answer is not valid";
                 setTimeout(function() {
@@ -352,7 +332,7 @@ function check(oper) {
                     document.getElementById("check_button").disabled = true;
                     document.getElementById("next_button").style.display = "block";
                     document.getElementById("next_button").disabled = false;
-                    console.log(document.getElementById("next_button").disabled);
+                    (document.getElementById("next_button").disabled);
                     correct_questions = correct_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
@@ -365,7 +345,7 @@ function check(oper) {
                     document.getElementById("check_button").disabled = true;
                     document.getElementById("next_button").style.display = "block";
                     document.getElementById("next_button").disabled = false;
-                    console.log(document.getElementById("next_button").disabled);
+                    (document.getElementById("next_button").disabled);
                     incorrect_questions = incorrect_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
@@ -376,16 +356,12 @@ function check(oper) {
 }
 
 function Next(operati) {
-    console.log(operati);
     header = "<h3>What do you want to practice today?</h3>";
     buttons = '<div id="buttons"><button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
     mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success" onclick="check();">Check Your Answer</button></div>';
     div = header + buttons + mini_screen;
     document.getElementById("main_div").innerHTML = div;
     document.getElementById(operati.id).click();
-    console.log(document.getElementById("check_button"));
-    console.log("juycgdf");
-    console.log("Working Properly");
     document.getElementById("next_button").style.display = "none";
     document.getElementById("next_button").disabled = true;
     document.getElementById("check_button").style.display = "block";
@@ -418,20 +394,16 @@ function divide(grd) {
 
     else {
         hardrange2 = hardrange / 100;
-        console.log(hardrange);
-        console.log(hardrange2 + "this is hardrange2");
     }
 
     number_1 = Math.floor(Math.random() * hardrange);
     number_2 = Math.floor(Math.random() * hardrange2);
     if(number_1 > number_2) {
-        console.log(hardrange2);
+        (hardrange2);
         divanswer = number_1 / number_2;
         if((grd == 6) || (grd == 7) || (grd == 8)) {
             answer = divanswer.toFixed(3);
-            console.log(answer);
             question.innerHTML = "What is " + number_1 + " ÷ " + number_2 + " ?";
-            console.log(number_1 + " / " + number_2);
         }
 
         else {
@@ -474,36 +446,23 @@ function add() {
 }
 
 function caltime() {
-    console.log("caltime running");
-    console.log(checked);
     if(checked == false) {
         setTimeout(caltime, 10);
         time = Number(time) + 0.01;
-        console.log(time);
     }    
 
     else {
         time = time.toFixed(2);
-        console.log(time);
         times.push(Number(time));
-        console.log(times);
-        console.log(times.length);
         var length = times.length - 1;
         for(i = 0; i <= length; i++) {
             localStorage.setItem("i", i)
             var item = localStorage.getItem("i");
-            console.log(times);
-            console.log(times[item]);
-            console.log("running");
             avgy1 = avgy1 + times[item];
-            console.log(avgy1);
-            console.log(item);
         }
         avgy2 = times.length;
-        console.log(avgy2);
         average_time_per_question = avgy1 / avgy2;
         average_time_per_question = average_time_per_question.toFixed(1);
-        console.log(average_time_per_question);
         if(correct_questions != 0) {
             Percentage_correct_answers = correct_questions / total_questions * 100;
         }
@@ -512,14 +471,14 @@ function caltime() {
             Percentage_correct_answers = 0;
         }
 
-        firebase.database().ref(username).update({
+        firebase.database().ref("/" + username).update({
             percentageOfCorrectAnswers: Percentage_correct_answers,
             correctQuestions: correct_questions,
             incorrectQuestions: incorrect_questions,
             totalQuestions: total_questions,
             averageTime: average_time_per_question,
             times: times
-        });
+        });                     
 
         time = 0;
         avgy1 = 0

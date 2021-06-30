@@ -8,6 +8,10 @@ label {
     text-align: center;
 }
 
+a {
+    margin-bottom: 100px;
+}
+
 #First_div {
     height: 100%;
     background: dodgerblue;
@@ -24,6 +28,7 @@ label {
 #Second_div {
     float: right;
     text-align: center;
+    width: 50%;
 }
 
 #emaillabel {
@@ -32,9 +37,13 @@ label {
 
 .form-control {
     width: 300px;
-    margin-left: 250px;
 }
 
 #error {
     color: red;
+}
+
+.sign {
+    margin-top: 20px;
+    font-size: 25px;
 }

@@ -25,7 +25,6 @@ body {
 
 #answer {
     color: black;
-    width: 250px;
     padding: 0px;
 }
 
@@ -44,7 +43,7 @@ input {
 }
 
 .form-control {
-    width: 200px;
+    width: 250px;
 }
 
 #next_button {
