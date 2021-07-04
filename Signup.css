@@ -8,6 +8,10 @@ label {
     text-align: center;
 }
 
+button {
+    box-shadow: 4px 4px 4px gray;
+}
+
 a {
     margin-bottom: 100px;
 }
@@ -37,6 +41,7 @@ a {
 
 .form-control {
     width: 300px;
+    box-shadow: 4px 4px 4px gray;
 }
 
 #error {

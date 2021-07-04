@@ -54,6 +54,9 @@ function signup() {
             localStorage.setItem("Grade", grade);
             localStorage.setItem("Email", email);
             window.location = "home.html";
+            
+            document.getElementById("htefa").href = "mailto:" + username + "?Subject=Your account has been succesfully created on The Math App";
+            document.getElementById("htefa").click();
         }
         else {
             document.getElementById("passwordverify").className = "btn-danger form-control";

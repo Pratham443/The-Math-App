@@ -9,6 +9,9 @@
         <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+        <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-core.min.js"></script>
+        <script src="https://cdn.anychart.com/releases/8.0.1/js/anychart-pie.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
         <link rel="stylesheet" href="home.css">
     </head>
@@ -24,9 +27,10 @@
                 <div id="main_div">
                     <h3>What do you want to practice today?</h3>
                     <div id="buttons">
-                        <button id="Stats" class="btn btn-primary" onclick="Stats()">Stats</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button>
+                        <button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button>
                     </div>    
                 </div>
+                <div id="chart_div"></div>
             </center>
         </div>
         <script src="home.js"></script>

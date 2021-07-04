@@ -15,6 +15,9 @@ firebase.initializeApp(firebaseConfig);
 
 var extra1;
 var extra2;
+var minutes = 0;
+var showabletime = 0;
+var showabletime2 = 0;
 var grade2 = "grade";
 var checked = false;
 var time = 0;
@@ -47,6 +50,8 @@ var grade = localStorage.getItem("Grade");
 var email = localStorage.getItem("Email");
 var mouseup1 = 1;
 var mouseup2 = 0;
+var correct_sound = new Audio("correct sound.wav");
+var incorrect_sound = new Audio("incorrect sound.wav");
 
 if(email == null) {
     function getData() {firebase.database().ref("/" + username).on('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
@@ -177,16 +182,16 @@ function Practice(oper) {
     else {
         buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
     }
-    mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button></div>';
+    mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
     if(oper == "Division") {
         if((grade == 6) || (grade == 7) || (grade == 8)) {
             ("jeeeeeeeeeee");
-            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><br><br><h5 id="note" class="text-muted">Note: Round the number to 3 decimal digits</h5><br><br></div>';
+            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><br><br><h5 id="note" class="text-muted">Note: Round the number to 3 decimal digits</h5><br><br><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
         }
 
         else {
             ("jiiiiiiiii");
-            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><input id="remainder" class="form_control" placeholder="Type the remainder" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button></div>';
+            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><input id="remainder" class="form_control" placeholder="Type the remainder" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
         }
     }
     div = header + buttons + mini_screen;
@@ -214,7 +219,9 @@ function Practice(oper) {
 }
 
 function Stats() {
-    stats = '<br><h4 class="btn btn-secondary">Total Questions: <span class="var" id="totquest"></span></h4><br><h4 class="btn btn-secondary">Correct Questions: <span class="var" id="corquest"></span></h4><br><h4 class="btn btn-secondary">Incorrect Questions: <span class="var" id="incorquest"></span></h4><br><h4 class="btn btn-secondary">Average Time: <span class="var" id="avgtime"></span></h4><br><h4 class="btn btn-secondary">Percentage of Correct Answers: <span class="var" id="percocoans"></span></h4>';
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    stats = '<br><h4 class="btn btn-secondary">Total Questions: <span class="var" id="totquest"></span></h4><br><h4 class="btn btn-secondary">Correct Questions: <span class="var" id="corquest"></span></h4><br><h4 class="btn btn-secondary">Incorrect Questions: <span class="var" id="incorquest"></span></h4><br><h4 class="btn btn-secondary">Average Time: <span class="var" id="avgtime"></span></h4><br><br><h4 id="piechartheader">Percentage of Correct and Incorrect Answers</h4><div id="piechart"></div>';
     header = "<h3>What do you want to practice today?</h3>";
     if((grade == 1) || (grade == 2)) {
         buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
@@ -223,6 +230,7 @@ function Stats() {
     else {
         buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
     }
+
     div = header + buttons + stats;
 
     if(total_questions == 0) {
@@ -270,6 +278,7 @@ function check(oper) {
                         correct_questions = correct_questions + 1;
                         total_questions = total_questions + 1;
                         checked = true;
+                        correct_sound.play();
                     }
                 
                     else {
@@ -282,6 +291,7 @@ function check(oper) {
                         incorrect_questions = incorrect_questions + 1;
                         total_questions = total_questions + 1;
                         checked = true;
+                        incorrect_sound.play();
                     }
                 }
         
@@ -298,6 +308,7 @@ function check(oper) {
                         correct_questions = correct_questions + 1;
                         total_questions = total_questions + 1;
                         checked = true;
+                        correct_sound.play();
                     }
         
                 else {
@@ -311,6 +322,7 @@ function check(oper) {
                     incorrect_questions = incorrect_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
+                    incorrect_sound.play();
                 }
             }
         }
@@ -336,6 +348,7 @@ function check(oper) {
                     correct_questions = correct_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
+                    correct_sound.play();
                 }
             
                 else {
@@ -349,6 +362,7 @@ function check(oper) {
                     incorrect_questions = incorrect_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
+                    incorrect_sound.play();
                 }
             }
         }
@@ -449,6 +463,32 @@ function caltime() {
     if(checked == false) {
         setTimeout(caltime, 10);
         time = Number(time) + 0.01;
+        showabletime = Math.round(time);
+        if(showabletime >= 60) {
+            minutes = Math.round(showabletime) / 60 * 60 + minutes;
+            showabletime = 0
+            if(minutes >= 10) {
+                showabletime2 = minutes + ":00";
+                document.getElementById("time").innerHTML = showabletime2;
+            }
+
+            else {
+                showabletime2 = "0" + minutes + ":00";
+                document.getElementById("time").innerHTML = showabletime2;
+            }
+        }
+
+        else {
+            if(showabletime >= 10) {
+                showabletime2 = "0" + minutes + ":" + showabletime;
+                document.getElementById("time").innerHTML = showabletime2;
+            }
+
+            else {
+                showabletime2 = "0" + minutes + ":0" + showabletime;
+                document.getElementById("time").innerHTML = showabletime2;
+            }
+        }
     }    
 
     else {
@@ -471,7 +511,7 @@ function caltime() {
             Percentage_correct_answers = 0;
         }
 
-        firebase.database().ref("/" + username).update({
+        firebase.database().ref("/").child(username).update({
             percentageOfCorrectAnswers: Percentage_correct_answers,
             correctQuestions: correct_questions,
             incorrectQuestions: incorrect_questions,
@@ -485,3 +525,29 @@ function caltime() {
         avgy2 = 0;
     }
 }
+
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['Correct Answers', correct_questions],
+        ['Incorrect Answers', incorrect_questions],
+    ]);
+
+    var options = {
+        backgroundColor: 'skyblue',
+        titleTextStyle: {color: "white"},
+        titlePosition: "none",
+        is3D: true,
+        colors: ["green", "red"],
+        legend: {
+            position: "labeled",
+            textStyle: {
+                color:"white"
+            }
+        }
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+} 
