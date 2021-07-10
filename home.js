@@ -15,6 +15,11 @@ firebase.initializeApp(firebaseConfig);
 
 var extra1;
 var extra2;
+var header = "<h3>What do you want to practice today?</h3>";
+var stats = '<br><h4 class="btn btn-secondary">Total Questions: <span class="var" id="totquest"></span></h4><br><h4 class="btn btn-secondary">Correct Questions: <span class="var" id="corquest"></span></h4><br><h4 class="btn btn-secondary">Incorrect Questions: <span class="var" id="incorquest"></span></h4><br><h4 class="btn btn-secondary">Average Time: <span class="var" id="avgtime"></span></h4><br><br><h4 id="piechartheader">Percentage of Correct and Incorrect Answers</h4><div id="piechart"></div>';
+var settings = '';
+var playmusic = true;
+var playsound = true;
 var minutes = 0;
 var showabletime = 0;
 var showabletime2 = 0;
@@ -52,6 +57,21 @@ var mouseup1 = 1;
 var mouseup2 = 0;
 var correct_sound = new Audio("correct sound.wav");
 var incorrect_sound = new Audio("incorrect sound.wav");
+var background_sound = new Audio("Background music.wav");
+background_sound.volume = 0.15;
+
+if(playmusic == true) {
+    if (typeof background_sound.loop == 'boolean') {
+        background_sound.loop = true;
+    }
+    else {
+        background_sound.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+    }
+    background_sound.play();
+}
 
 if(email == null) {
     function getData() {firebase.database().ref("/" + username).on('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
@@ -60,6 +80,13 @@ if(email == null) {
         (childKey + " " + childData);
         if(childKey == "grade") {
             grade = childData;
+            if((grade == 1) || (grade == 2)) {
+                buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
+            }
+        
+            else {
+                buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
+            }
         }
 
         if(childKey == "easyRange") {
@@ -93,6 +120,14 @@ if(email == null) {
 
         if(childKey == "averageTime") {
             average_time_per_question = childData;
+        }
+
+        if(childKey == "playMusic") {
+            playmusic = childData;
+        }
+
+        if(childKey == "playSound") {
+            playsound = childData;
         }
     });});}
     getData(); 
@@ -146,6 +181,14 @@ else {
         hardrange2 = hardrange / 100;
     }
 
+    if((grade == 1) || (grade == 2)) {
+        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
+    }
+
+    else {
+        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
+    }
+
     firebase.database().ref("/").child(username).set({
         Password: password,
         grade: grade,
@@ -157,41 +200,34 @@ else {
         incorrectQuestions: 0,
         averageTime: "",
         percentageOfCorrectAnswers: 0,
-        times: times
+        times: times,
+        playMusic: playmusic,
+        playSound: playsound
     });
 }
 
 document.getElementById("Name").innerHTML = username + "!";
-(username);
 
 if((grade == 1) || (grade == 2)) {
-    document.getElementById("buttons").innerHTML = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Stats</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
+    document.getElementById("buttons").innerHTML = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Stats</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;&nbsp;<button id="settings" class="btn btn-primary" onclick="Settings();">Settings</button>';
 }
 
 else {
-    document.getElementById("buttons").innerHTML = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Stats</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
+    document.getElementById("buttons").innerHTML = '<button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button>&nbsp;&nbsp;<button id="settings" class="btn btn-primary" onclick="Settings();">Settings</button>';
 }
 
 function Practice(oper) {
     document.getElementById("title").innerHTML = "Practice | The Math App"
-    header = "<h3>What do you want to practice today?</h3>";
-    if((grade == 1) || (grade == 2)) {
-        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
-    }
-
-    else {
-        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
-    }
-    mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
+    mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form-control" placeholder="Type your answer" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
     if(oper == "Division") {
         if((grade == 6) || (grade == 7) || (grade == 8)) {
             ("jeeeeeeeeeee");
-            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><br><br><h5 id="note" class="text-muted">Note: Round the number to 3 decimal digits</h5><br><br><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
+            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form-control" placeholder="Type the quotient" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><br><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><br><br><h5 id="note" class="text-muted">Note: Round the number to 3 decimal digits</h5><br><br><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
         }
 
         else {
             ("jiiiiiiiii");
-            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form_control" placeholder="Type the quotient" type="number"><br><br><input id="remainder" class="form_control" placeholder="Type the remainder" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
+            mini_screen = '<div id="mini_screen"><h3 id="question"></h3><br><input id="answer" class="form-control" placeholder="Type the quotient" type="number"><br><br><input id="remainder" class="form_control" placeholder="Type the remainder" type="number"><br><br><button id="check_button" class="btn btn-success check" onclick="check(' + oper + ');">Check Your Answer</button><button id="next_button" class="next btn btn-success" onclick="Next('+ oper +')">Next Question</button><span id="timerspan"><img id="timer" src="timer.png" class="img-responsive"><h5 id="time">00:00</h5</span></div>';
         }
     }
     div = header + buttons + mini_screen;
@@ -221,14 +257,12 @@ function Practice(oper) {
 function Stats() {
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
-    stats = '<br><h4 class="btn btn-secondary">Total Questions: <span class="var" id="totquest"></span></h4><br><h4 class="btn btn-secondary">Correct Questions: <span class="var" id="corquest"></span></h4><br><h4 class="btn btn-secondary">Incorrect Questions: <span class="var" id="incorquest"></span></h4><br><h4 class="btn btn-secondary">Average Time: <span class="var" id="avgtime"></span></h4><br><br><h4 id="piechartheader">Percentage of Correct and Incorrect Answers</h4><div id="piechart"></div>';
-    header = "<h3>What do you want to practice today?</h3>";
     if((grade == 1) || (grade == 2)) {
-        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
+        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
     }
 
     else {
-        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
+        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
     }
 
     div = header + buttons + stats;
@@ -239,7 +273,6 @@ function Stats() {
         document.getElementById("corquest").innerHTML = 0;
         document.getElementById("incorquest").innerHTML = 0;
         document.getElementById("avgtime").innerHTML = 0;
-        document.getElementById("percocoans").innerHTML = 0;
     }
 
     else {
@@ -248,7 +281,6 @@ function Stats() {
         document.getElementById("corquest").innerHTML = correct_questions;
         document.getElementById("incorquest").innerHTML = incorrect_questions;
         document.getElementById("avgtime").innerHTML = average_time_per_question + " seconds";
-        document.getElementById("percocoans").innerHTML = Percentage_correct_answers + "%";
     }
 }
 
@@ -389,6 +421,10 @@ function multiply() {
     question.innerHTML = "What is " + number_1 + " x " + number_2 + " ?";
     checked = false;
     caltime();
+    time = 0;
+    avgy1 = 0
+    avgy2 = 0;
+    minutes = 0;
 }
 
 function divide(grd) {
@@ -428,6 +464,10 @@ function divide(grd) {
         }
         checked = false;
         caltime();
+        time = 0;
+        avgy1 = 0
+        avgy2 = 0;
+        minutes = 0;
     } 
 
     else {
@@ -443,6 +483,10 @@ function subtract() {
         question.innerHTML = "What is " + number_1 + " - " + number_2 + " ?";
         checked = false;
         caltime();
+        time = 0;
+        avgy1 = 0
+        avgy2 = 0;
+        minutes = 0;
     }
 
     else {
@@ -457,41 +501,54 @@ function add() {
     question.innerHTML = "What is " + number_1 + " + " + number_2 + " ?";
     checked = false;
     caltime();
+    time = 0;
+    avgy1 = 0
+    avgy2 = 0;
+    minutes = 0;
 }
 
 function caltime() {
     if(checked == false) {
         setTimeout(caltime, 10);
+        console.log(time);
         time = Number(time) + 0.01;
+        console.log(time);
         showabletime = Math.round(time);
+        console.log(showabletime);
         if(showabletime >= 60) {
-            minutes = Math.round(showabletime) / 60 * 60 + minutes;
-            showabletime = 0
+            console.log(showabletime);
+            console.log(showabletime / 60);
+            minutes = Math.round(showabletime / 60);
+            console.log(minutes);
+            time = 0;
             if(minutes >= 10) {
                 showabletime2 = minutes + ":00";
-                document.getElementById("time").innerHTML = showabletime2;
+                document.getElementById("time").innerText = showabletime2;
             }
 
             else {
                 showabletime2 = "0" + minutes + ":00";
-                document.getElementById("time").innerHTML = showabletime2;
+                document.getElementById("time").innerText = showabletime2;
             }
         }
 
         else {
+            console.log("This is WORKING SHOWABLE TIME = " + showabletime)
             if(showabletime >= 10) {
                 showabletime2 = "0" + minutes + ":" + showabletime;
-                document.getElementById("time").innerHTML = showabletime2;
+                document.getElementById("time").innerText = showabletime2;
             }
 
             else {
+                console.log("This is WORKING SECOND SHOWABLE TIME= " + showabletime);
                 showabletime2 = "0" + minutes + ":0" + showabletime;
-                document.getElementById("time").innerHTML = showabletime2;
+                document.getElementById("time").innerText = showabletime2;
             }
         }
     }    
 
     else {
+        time = time + minutes * 60;
         time = time.toFixed(2);
         times.push(Number(time));
         var length = times.length - 1;
@@ -519,10 +576,6 @@ function caltime() {
             averageTime: average_time_per_question,
             times: times
         });                     
-
-        time = 0;
-        avgy1 = 0
-        avgy2 = 0;
     }
 }
 
@@ -534,6 +587,7 @@ function drawChart() {
     ]);
 
     var options = {
+        height: 150,
         backgroundColor: 'skyblue',
         titleTextStyle: {color: "white"},
         titlePosition: "none",
@@ -551,3 +605,7 @@ function drawChart() {
 
     chart.draw(data, options);
 } 
+
+function Settings() {
+    document.getElementById("main_div").innerHTML = header + buttons + settings;
+}

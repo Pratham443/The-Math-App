@@ -8,6 +8,14 @@ label {
     text-align: center;
 }
 
+select {
+    color: black;
+}
+
+option {
+    color: black;
+}
+
 button {
     box-shadow: 4px 4px 4px gray;
 }

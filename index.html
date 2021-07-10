@@ -8,6 +8,8 @@
         <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
 
         <link rel="stylesheet" href="Signup.css">
     </head>
@@ -24,12 +26,22 @@
                     <label class="sign">Sign Up</label>
                     <br>
                     <label id="emaillabel">Email</label>
-                    <input id="email" class="form-control" type="text" placeholder="Type Email">
+                    <input id="email" class="form-control" type="email" placeholder="Type Email">
                     <br>
-                    <label id="gradelabel">Grade</label>
-                    <input id="grade" class="form-control" type="number" placeholder="Type Grade">
+                    <label id="gradelabel">Grade(1 - 8)</label>
                     <br>
-                    <label id="userlabel">Username</label>
+                    <select id="grade" class="form-control">
+                        <option value="grd1">1</option>
+                        <option value="grd2">2</option>
+                        <option value="grd3">3</option>
+                        <option value="grd4">4</option>
+                        <option value="grd5">5</option>
+                        <option value="grd6">6</option>
+                        <option value="grd7">7</option>
+                        <option value="grd8">8</option>
+                    </select>
+                    <br>
+                    <label id="userlabel">Name</label>
                     <input id="username" class="form-control" type="text" placeholder="Type Username">
                     <br>
                     <label id="passlabel">Password</label>
@@ -39,9 +51,9 @@
                     <input id="passwordverify" class="form-control" type="text" placeholder="Confirm Password">
                     <br>
                     <h3 id="error"></h3>
-                    <button id="login" class="btn btn-success" onclick="signup();">Sign Up</button>
+                    <button id="Login" class="btn btn-success" onclick="signup()">Sign Up</button>
                     <h4>Already have an account?<a href="Login.html">Log In</a></h4>
-                    <a id="htefa"></a>
+                    <a id="htefa" href=""></a>
                 </center>
             </div>
         </center>

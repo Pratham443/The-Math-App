@@ -41,6 +41,11 @@ button {
     color: red;
 }
 
+#loadimg {
+    width: 50px;
+    height: 50px;
+}
+
 .sign {
     margin-top: 20px;
     font-size: 25px;

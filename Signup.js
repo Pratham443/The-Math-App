@@ -14,6 +14,11 @@ if(width < 782) {
     console.log('This is RUNNING');
 }
 
+function validateEmail(emaily) {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(emaily).toLowerCase());
+  }
+
 function signup() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
@@ -48,19 +53,41 @@ function signup() {
     }
 
     else {
-        if(password == confpassword) {
-            localStorage.setItem("Username", username);
-            localStorage.setItem("Password", password);
-            localStorage.setItem("Grade", grade);
-            localStorage.setItem("Email", email);
-            window.location = "home.html";
-            
-            document.getElementById("htefa").href = "mailto:" + username + "?Subject=Your account has been succesfully created on The Math App";
-            document.getElementById("htefa").click();
+        if((grade >= 1) && (grade <= 8)) {
+            if(password == confpassword) {
+                if(validateEmail(email)) {
+                    localStorage.setItem("Username", username);
+                    localStorage.setItem("Password", password);
+                    localStorage.setItem("Grade", grade);
+                    localStorage.setItem("Email", email);
+                    window.location = "home.html";
+                            
+                    Email.send(
+                        "smtp.elasticemail.com",
+                        "prathurk01@gmail.com",
+                        "262C45C1E7C157B88A6AC87B98EF2CB418A8",
+                        "prabagowda@gmail.com",
+                        "prathurk01@gmail.com",
+                        "Your account has been successfully created on The Math App",
+                        "Your account has been successfully created on The Math App. Hope you like it!"
+                    ).then(
+                        message => alert(message)
+                    );  
+                }
+
+                else {
+                    document.getElementById("error").innerText = "Email not valid";
+                }
+            }   
+
+            else {
+                document.getElementById("passwordverify").className = "btn-danger form-control";
+                document.getElementById("error").innerHTML = "Passwords don't match";
+            }
         }
+
         else {
-            document.getElementById("passwordverify").className = "btn-danger form-control";
-            document.getElementById("error").innerHTML = "Passwords don't match";
+            document.getElementById("error").innerText = "Grade should be between 1 and 8";
         }
     }
 }

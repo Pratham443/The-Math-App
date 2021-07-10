@@ -32,6 +32,10 @@ button, #main_div, input {
     padding: 0px;
 }
 
+#grade {
+    width:250px;
+}
+
 .btn-secondary {
     background-color: darkgray;
     align-self: left;
@@ -62,4 +66,8 @@ input {
 
 #piechart {
     height: 180px;
+}
+
+#buttons {
+    align-content: center;
 }
