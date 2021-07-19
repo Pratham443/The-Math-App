@@ -3,6 +3,10 @@ body {
     color: white;
 }
 
+html, body {
+    height: 100%;
+}
+
 button, #main_div, input {
     box-shadow: 4px 4px 4px gray;
 }
@@ -17,7 +21,8 @@ button, #main_div, input {
 }
 
 #main_div {
-    height: 520px;
+    margin-top: 150px;
+    height: 65vh;
     background: skyblue;
     border-radius: 20px;
     border: 2px ridge dodgerblue;
@@ -32,8 +37,8 @@ button, #main_div, input {
     padding: 0px;
 }
 
-#grade {
-    width:250px;
+#remainder {
+    padding: 0px;
 }
 
 .btn-secondary {
@@ -48,11 +53,6 @@ button, #main_div, input {
 
 input {
     color: black;
-    width: 200px;
-}
-
-.form-control {
-    width: 250px;
 }
 
 #next_button {

@@ -8,6 +8,10 @@ label {
     text-align: center;
 }
 
+input {
+    margin-left: 32.5%;
+}
+
 select {
     color: black;
 }
@@ -43,13 +47,13 @@ a {
     width: 50%;
 }
 
-#emaillabel {
+#gradelabel {
     margin-top: 100px;
 }
 
 .form-control {
-    width: 300px;
     box-shadow: 4px 4px 4px gray;
+    width: 35%;
 }
 
 #error {

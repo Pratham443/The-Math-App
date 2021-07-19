@@ -7,6 +7,10 @@ label {
     font-size: 20px;
 }
 
+input {
+    margin-left: 32.5%;
+}
+
 #First_div {
     height: 100%;
     background: dodgerblue;
@@ -28,11 +32,6 @@ button {
     text-align: center;
 }
 
-.form-control {
-    width: 300px;
-    box-shadow: 4px 4px 4px gray;
-}
-
 #userlabel {
     margin-top: 200px;
 }
@@ -49,4 +48,9 @@ button {
 .sign {
     margin-top: 20px;
     font-size: 25px;
+}
+
+.form-control {
+    box-shadow: 4px 4px 4px gray;
+    width: 17.5%;
 }

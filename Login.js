@@ -16,6 +16,8 @@ firebase.initializeApp(firebaseConfig);
 var Users2 = "";
 var correctpassword = "";
 var times = 0;
+var username;
+var password;
 
 var childKey = "";
 var childData = "";
@@ -35,10 +37,29 @@ if(width < 782) {
     console.log('This is RUNNING');
 }
 
+window.addEventListener("keydown", keypressed);
+
+function keypressed(e) {
+    keypressedcode = e.keyCode;
+
+    username = document.getElementById("username").value;
+    password = document.getElementById("password").value;
+
+    if(keypressedcode == "13") {
+        if(username != "") {
+            document.getElementById("password").focus();
+        }
+
+        if(password != "") {
+            login();
+            console.log("WORKING");
+        }
+    }
+}
 
 function login() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    username = document.getElementById("username").value;
+    password = document.getElementById("password").value;
     console.log("My password" + password);
 
 
@@ -57,12 +78,15 @@ function login() {
         }
         
         else {
-            function getData2() {firebase.database().ref("/").once('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
+            console.log("WORKING");
+            function getData2() {firebase.database().ref("/").on('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
                 childKey = childSnapshot.key;
-                childData = childSnapshot.value;
-                console.log("Childkey:" + childKey + " Username:" + username);
+                childData = childSnapshot.val();
+                console.log(childSnapshot);
+                console.log("Childkey:" + childKey + " Username:" + username + " ChildData:" + childData);
                 if(childKey == username) {
-                    function getData() {firebase.database().ref(username).once('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
+                    console.log("WORKING");
+                    function getData() {firebase.database().ref("/" + username).on('value', function(snapshot) {snapshot.forEach(function(childSnapshot) {
                         childKey = childSnapshot.key; 
                         console.log(childSnapshot);
                         console.log(childKey);
@@ -74,6 +98,7 @@ function login() {
                             console.log(childData);
         
                             if(correctpassword == password) {
+                                console.log("WORKING");
                                 localStorage.setItem("Username", username);
                                 localStorage.removeItem("Grade");
                                 localStorage.removeItem("Email");
@@ -81,7 +106,7 @@ function login() {
                             }
                         
                             else {
-                                document.getElementById("error").innerHTML = "";
+                                document.getElementById("error").innerHTML = "Incorrect Password";
                                 setTimeout(incorrect, 100);
                                 times = times + 1;
                                 console.log("Here I am");
