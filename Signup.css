@@ -8,12 +8,6 @@ label {
     text-align: center;
 }
 
-select {
-    color: black;
-    margin-left: 0px;
-    margin-right: 35%;
-}
-
 option {
     color: black;
 }
@@ -52,7 +46,7 @@ a {
 .form-control {
     box-shadow: 4px 4px 4px gray;
     width: 250px;
-    margin-left: 35%;
+    color: black;
 }
 
 #error {
@@ -62,4 +56,8 @@ a {
 .sign {
     margin-top: 20px;
     font-size: 25px;
+}
+
+.input {
+    margin-left: 35%;
 }
