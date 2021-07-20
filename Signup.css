@@ -22,6 +22,7 @@ a {
 
 #First_div {
     height: 100%;
+    width: 50%;
     background: dodgerblue;
     text-align: center;
     float: left;
