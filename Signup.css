@@ -8,12 +8,9 @@ label {
     text-align: center;
 }
 
-input {
-    margin-left: 32.5vh;
-}
-
 select {
     color: black;
+    margin-left: 0px;
 }
 
 option {
@@ -54,6 +51,7 @@ a {
 .form-control {
     box-shadow: 4px 4px 4px gray;
     width: 250px;
+    margin-left: 35%;
 }
 
 #error {
