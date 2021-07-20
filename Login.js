@@ -31,6 +31,7 @@ console.log(width);
 
 if(width < 782) {
     document.getElementById("First_div").style.width = "0%";
+    document.getElementById("First_div").style.height = "0%";
     document.getElementById("First_div").innerHTML = "";
     document.getElementById("First_div").style.backgroundColor = "lightblue";
     document.getElementById("Second_div").style.width = "100%";
