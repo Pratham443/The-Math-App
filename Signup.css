@@ -11,6 +11,7 @@ label {
 select {
     color: black;
     margin-left: 0px;
+    margin-right: 35%;
 }
 
 option {
