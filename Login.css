@@ -52,5 +52,6 @@ button {
 
 .form-control {
     box-shadow: 4px 4px 4px gray;
-    width: 17.5%;
+    width: 250px;
+    color: black;
 }
