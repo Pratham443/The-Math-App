@@ -66,6 +66,8 @@ input {
 
 #piechart {
     height: 180px;
+    border: 2px ridge dodgerblue;
+    border-top: 0px ridge skyblue;
 }
 
 #buttons {
