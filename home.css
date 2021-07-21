@@ -51,7 +51,7 @@ button, #main_div, input {
     color: white;
 }
 
-input {
+.form-control {
     color: black;
     width: 250px;
 }
