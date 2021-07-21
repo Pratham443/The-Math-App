@@ -53,6 +53,7 @@ button, #main_div, input {
 
 input {
     color: black;
+    width: 250px;
 }
 
 #next_button {
