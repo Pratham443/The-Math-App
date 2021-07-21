@@ -373,7 +373,6 @@ function check() {
                     document.getElementById("check_button").disabled = true;
                     document.getElementById("next_button").style.display = "block";
                     document.getElementById("next_button").disabled = false;
-                    (document.getElementById("next_button").disabled);
                     correct_questions = correct_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
@@ -387,7 +386,6 @@ function check() {
                     document.getElementById("check_button").disabled = true;
                     document.getElementById("next_button").style.display = "block";
                     document.getElementById("next_button").disabled = false;
-                    (document.getElementById("next_button").disabled);
                     incorrect_questions = incorrect_questions + 1;
                     total_questions = total_questions + 1;
                     checked = true;
