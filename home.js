@@ -296,7 +296,7 @@ function check() {
 
     else {
         console.log(oper);
-        if(oper.id == "Division") {
+        if(oper == "Division") {
                 if(((grade == 6) || (grade == 7) || (grade == 8))) {
                     if(useranswer == answer) {
                         document.getElementById("question").innerText = "Correct!";
@@ -312,6 +312,7 @@ function check() {
                     }
                 
                     else {
+                        console.log("This is working till now");
                         document.getElementById("question").innerHTML = "Incorrect. The answer is " + answer;
                         document.getElementById("answer").className = "form-control btn-danger";
                         document.getElementById("check_button").style.display = "none";
