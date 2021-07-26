@@ -295,6 +295,7 @@ function check() {
     }
 
     else {
+        console.log(oper);
         if(oper.id == "Division") {
                 if(((grade == 6) || (grade == 7) || (grade == 8))) {
                     if(useranswer == answer) {
