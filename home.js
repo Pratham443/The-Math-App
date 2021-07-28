@@ -344,7 +344,7 @@ function check() {
         
                 else {
                     document.getElementById("question").innerHTML = "Incorrect. The answer is Quotient: " + answer + ", Remainder: " + remainder;
-                    document.getElementById("quotient").className = "form-control btn-danger";
+                    document.getElementById("answer").className = "form-control btn-danger";
                     document.getElementById("remainder").className = "form-control btn-danger";
                     document.getElementById("check_button").style.display = "none";
                     document.getElementById("check_button").disabled = true;
