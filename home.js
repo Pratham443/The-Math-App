@@ -329,7 +329,7 @@ function check() {
         
                 else {
                     userremainder = document.getElementById("remainder").value;
-                    document.getElementById("remanider").style.color = "white";
+                    document.getElementById("remainder").style.color = "white";
                     if((useranswer == answer) && (userremainder == remainder)) {
                         document.getElementById("question").innerHTML = "Correct!";
                         document.getElementById("answer").className = "form-control btn-success";
