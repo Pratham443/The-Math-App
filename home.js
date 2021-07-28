@@ -295,6 +295,7 @@ function check() {
     }
 
     else {
+        document.getElementById("answer").style.color = "white";
         console.log(oper);
         if(oper == "Division") {
                 if(((grade == 6) || (grade == 7) || (grade == 8))) {
@@ -328,6 +329,7 @@ function check() {
         
                 else {
                     userremainder = document.getElementById("remainder").value;
+                    document.getElementById("remanider").style.color = "white";
                     if((useranswer == answer) && (userremainder == remainder)) {
                         document.getElementById("question").innerHTML = "Correct!";
                         document.getElementById("answer").className = "form-control btn-success";
@@ -342,19 +344,19 @@ function check() {
                         correct_sound.play();
                     }
         
-                else {
-                    document.getElementById("question").innerHTML = "Incorrect. The answer is Quotient: " + answer + ", Remainder: " + remainder;
-                    document.getElementById("answer").className = "form-control btn-danger";
-                    document.getElementById("remainder").className = "form-control btn-danger";
-                    document.getElementById("check_button").style.display = "none";
-                    document.getElementById("check_button").disabled = true;
-                    document.getElementById("next_button").style.display = "block";
-                    document.getElementById("next_button").disabled = false;
-                    incorrect_questions = incorrect_questions + 1;
-                    total_questions = total_questions + 1;
-                    checked = true;
-                    incorrect_sound.play();
-                }
+                    else {
+                        document.getElementById("question").innerHTML = "Incorrect. The answer is Quotient: " + answer + ", Remainder: " + remainder;
+                        document.getElementById("answer").className = "form-control btn-danger";
+                        document.getElementById("remainder").className = "form-control btn-danger";
+                        document.getElementById("check_button").style.display = "none";
+                        document.getElementById("check_button").disabled = true;
+                        document.getElementById("next_button").style.display = "block";
+                        document.getElementById("next_button").disabled = false;
+                        incorrect_questions = incorrect_questions + 1;
+                        total_questions = total_questions + 1;
+                        checked = true;
+                        incorrect_sound.play();
+                    }
             }
         }
     
@@ -408,6 +410,10 @@ function Next(operati) {
     document.getElementById("next_button").disabled = true;
     document.getElementById("check_button").style.display = "block";
     document.getElementById("check_button").disabled = false;
+    document.getElementById("answer").style.color = "black";
+    if((operati.id == "Division") && (grade < 6) && (grade > 2)) {
+        document.getElementById("remainder").style.color = "black";  
+    }
 }
 
 function multiply() {
