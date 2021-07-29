@@ -22,7 +22,8 @@ button, #main_div, input {
 
 #main_div {
     margin-top: 150px;
-    height: 70vh;
+    min-height: 70vh;
+    height: fit-content;
     background: skyblue;
     border-radius: 20px;
     border: 2px ridge dodgerblue;
