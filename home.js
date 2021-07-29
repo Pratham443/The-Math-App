@@ -197,28 +197,18 @@ else {
 
 document.getElementById("Name").innerHTML = "Hi " + username + "!";
 
-if(screen.width < 782) {
-        if((grade == 1) || (grade == 2)) {
+if((grade == 1) || (grade == 2)) {
         buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
         document.getElementById("buttons").innerHTML = buttons;
         }
 
-        else {
-            buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button><br><br><button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
-            document.getElementById("buttons").innerHTML = buttons;
+ else {
+        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button><button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
+        document.getElementById("buttons").innerHTML = buttons;
+        if(screen.width < 782) {
+            document.getElementById("Multiplication").style.marginTop = 8px;
+            document.getElementById("Division").style.marginTop = 8px;
         }
-    }
-    
-else {
-    if((grade == 1) || (grade == 2)) {
-        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>';
-        document.getElementById("buttons").innerHTML = buttons;
-    }
-
-    else {
-        buttons = '<div id="buttons"><button id="Stats" class="btn btn-primary" onclick="Stats()">Statistics</button>&nbsp;&nbsp;<button id="Addition" class="btn btn-primary" onclick="Practice(this.id);">Addition</button>&nbsp;&nbsp;<button class="btn btn-primary" id="Subtraction" onclick="Practice(this.id);">Subtraction</button>&nbsp;&nbsp;<button id="Multiplication" class="btn btn-primary" onclick="Practice(this.id);">Multiplication</button>&nbsp;&nbsp;<button id="Division" class="btn btn-primary" onclick="Practice(this.id);">Division</button></div>';
-        document.getElementById("buttons").innerHTML = buttons;
-    }
 }
 
 function Practice(operi) {
