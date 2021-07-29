@@ -139,7 +139,6 @@ if(email == null) {
         }
     });});}
     getData(); 
-    ("correctly done " + grade);
 }
 
 else {
@@ -216,7 +215,7 @@ else {
     });
 }
 
-document.getElementById("Name").innerHTML = username + "!";
+document.getElementById("Name").innerHTML = "Hi " + username + "!";
 
 function Practice(operi) {
     oper = operi;
