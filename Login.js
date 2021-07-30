@@ -107,7 +107,7 @@ function login() {
                             }
                         
                             else {
-                                document.getElementById("error").innerHTML = "Incorrect Password";
+                                document.getElementById("error").innerHTML = "Incorrect Username/Password";
                                 setTimeout(incorrect, 100);
                                 times = times + 1;
                                 console.log("Here I am");
@@ -123,7 +123,7 @@ function login() {
                     document.getElementById("loadimg").src = "loading icon.gif";
                     setTimeout(
                         function() {
-                            document.getElementById("error").innerText = "Username '" + username + "' not found";
+                            document.getElementById("error").innerText = "Incorrect Username/Password";
                             document.getElementById("loadimg").style.width = "0px";
                         }, 600);
                 }
