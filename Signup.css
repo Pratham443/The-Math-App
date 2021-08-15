@@ -21,6 +21,7 @@ a {
 }
 
 #First_div {
+    height: 110%;
     width: 50%;
     background: dodgerblue;
     text-align: center;
