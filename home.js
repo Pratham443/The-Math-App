@@ -574,7 +574,7 @@ function caltime() {
                 Percentage_correct_answers = 0;
             }
     
-            firebase.database().ref("/").child(username).update({
+            firebase.database().ref("/" + username).update({
                 percentageOfCorrectAnswers: Percentage_correct_answers,
                 correctQuestions: correct_questions,
                 incorrectQuestions: incorrect_questions,
